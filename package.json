@@ -1,0 +1,17 @@
+{
+  "name": "project-setup",
+  "version": "1.0.0",
+  "description": "basic node project setup",
+  "main": "index.js",
+  "scripts": {
+    "dev": "node src/index.js"
+  },
+  "author": "aman.tiwari",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "http-status-codes": "^2.2.0",
+    "winston": "^3.8.2"
+  }
+}
