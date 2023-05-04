@@ -8,8 +8,8 @@ const customFormat = printf(({ level, message, label, timestamp }) => {
 
 const logger = createLogger({
     format: combine(
-        label({ label: 'right meow!' }),
-        timestamp(),
+        label({ label: 'api-server logs' }),
+        timestamp({format: 'YYYY-MM-DD HH:mm:ss'}),
         customFormat
     ),
     transports: [new transports.Console(), new winston.transports.File({ filename: 'combined.log' })]
