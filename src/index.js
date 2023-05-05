@@ -8,6 +8,5 @@ app.use('/api', apiRoutes);
 
 
 app.listen(ServerConfig.PORT, () => {
-    console.log(`Server is up and running successfully @ port: ${ServerConfig.PORT}`);
     LOGGER.info(`Server is up and running successfully @ port: ${ServerConfig.PORT}`);
 });
