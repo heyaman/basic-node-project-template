@@ -1,7 +1,9 @@
 const express = require('express');
 const app = express();
-const { ServerConfig, LOGGER:{LOGGER} } = require('./config');
+const { ServerConfig, LOGGER: { LOGGER } } = require('./config');
 const apiRoutes = require('./routes');
+
+app.use(express.json());
 
 app.use('/api', apiRoutes);
 
