@@ -1,15 +1,17 @@
 class BaseRepository {
-    
+
     constructor(model) {
         this.model = model;
     }
 
     async findMany(query = {}, options = {}) {
         const {
-            limit = 10, offset = 0
+            limit = 10, offset = 0,
+            include = []
         } = options;
         return this.model.findAll({
             where: query,
+            include,
             limit,
             offset
         });

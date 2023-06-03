@@ -1,20 +1,20 @@
 // const {AirPlaneRepository} = require("../repositories");
 
-const { AirPlaneRepository } = require("../repositories");
+const { AirPortRepository } = require("../repositories");
 
 
 
 class AirPlaneService {
 
     constructor() {
-        this.airplane = new AirPlaneRepository();
+        this.airport = new AirPortRepository();
     }
-    async getAirPlanes() {
-        return this.airplane.findMany({});
+    async getAirPort() {
+        return this.airport.findMany({});
     }
 
-    async createAirPlane(body = {}) {
-        return this.airplane.insert(body);
+    async createAirPort(body = {}) {
+        return  this.airport.insert(body);
     }
 }
 module.exports = new AirPlaneService();

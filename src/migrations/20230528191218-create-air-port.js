@@ -13,7 +13,8 @@ module.exports = {
         type: Sequelize.STRING
       },
       uniqueIdentifier: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        unique: true
       },
       cityId: {
         type: Sequelize.INTEGER
@@ -26,6 +27,16 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATE
       }
+    });
+    queryInterface.addConstraint('AirPorts', ['cityId'], {
+      type: 'FOREIGN KEY',
+      name: 'FK_cityIde_airport', // useful if using queryInterface.removeConstraint
+      references: {
+        table: 'City',
+        key: 'id',
+      },
+      onUpdate: 'CASCADE',
+      onDelete: 'SET NULL',
     });
   },
   async down(queryInterface, Sequelize) {

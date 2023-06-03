@@ -4,13 +4,13 @@
 module.exports = {
   async up (queryInterface, Sequelize) {
     return queryInterface.bulkInsert('AirPlanes', [{
-      modelNumber: 'flight-XYZ-123',
-      capacity: 50,
+      modelNumber: 'flight-220-123',
+      capacity: 90,
       createdAt: new Date(),
       updatedAt: new Date()
     },{
-      modelNumber: 'flight-ABC-456',
-      capacity: 70,
+      modelNumber: 'flight-qwe-456',
+      capacity: 100,
       createdAt: new Date(),
       updatedAt: new Date()
     }]);

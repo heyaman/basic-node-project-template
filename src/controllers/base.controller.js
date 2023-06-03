@@ -25,9 +25,9 @@ class BaseController {
 
     }
 
-    static successHandler(data, res) {
+    static successHandler(result, res) {
         return res.status(StatusCodes.OK).json({
-            result: data,
+            result: result,
             message: 'API is live'
         })
     }
