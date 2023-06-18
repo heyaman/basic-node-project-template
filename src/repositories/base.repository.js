@@ -7,7 +7,8 @@ class BaseRepository {
     async findMany(query = {}, options = {}) {
         const {
             limit = 10, offset = 0,
-            include = []
+            include = [],
+            transaction
         } = options;
         return this.model.findAll({
             where: query,
@@ -27,8 +28,8 @@ class BaseRepository {
 
     }
 
-    async insert(body) {
-        return this.model.create(body);
+    async insert(body, { transaction } = {}) {
+        return this.model.create(body, { transaction });
     }
 }
 

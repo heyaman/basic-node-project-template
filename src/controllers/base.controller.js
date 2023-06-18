@@ -12,21 +12,28 @@ class BaseController {
         try {
             await schema.validateAsync(body);
         } catch (error) {
-            // LOGGER.error(`Schema ValidationError: ${JSON.stringify(body)}`);
-            throw new Error(`Schema ValidationError`);
+            throw new Error(`Schema Validation failed`);
         }
     }
 
-    static errorHandler(error, res) {
-       return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+    static async errorHandler(error, res, transaction) {
+        if (transaction) {
+            await transaction.rollback();
+        }
+        return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+            status: 'error',
             error: error,
             message: error.message || 'Something went wrong'
         })
 
     }
 
-    static successHandler(result, res) {
+    static async successHandler(result, res, transaction) {
+        if (transaction) {
+            await transaction.commit();
+        }
         return res.status(StatusCodes.OK).json({
+            'status': 'success',
             result: result,
             message: 'API is live'
         })

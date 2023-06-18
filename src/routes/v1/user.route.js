@@ -9,6 +9,8 @@ const router = express.Router();
 
 
 
-router.post('/', (req, res, next) => UserController.createUser(req, res, next));
+
+router.post('/signup', (req, res, next) => UserController.signUp(req, res, next));
+router.post('/signIn', (req, res, next) => UserController.signIn(req, res, next));
 
 module.exports = router;
