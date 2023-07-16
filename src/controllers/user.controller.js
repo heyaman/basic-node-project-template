@@ -10,7 +10,7 @@ class User extends BaseController {
         try {
             const { body = {} } = req;
             await this.validateSchema(SIGN_UP, body);
-            const result = await UserService.signUp(body, {transaction});
+            const result = await UserService.signUp(body, { transaction });
             this.successHandler(result, res, transaction);
         } catch (error) {
             this.errorHandler(error, res, transaction);

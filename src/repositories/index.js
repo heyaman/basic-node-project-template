@@ -5,5 +5,8 @@ module.exports = {
     UserRepository: require('./user.repository.js'),
     RoleRepository: require('./role.reporsitory.js'),
     UserRoleRepository: require('./user-role.repository.js'),
-    AirPortRepository: require('./airport.repository.js')
+    AirPortRepository: require('./airport.repository.js'),
+    FlightRepository: require('./flight.repository.js'),
+    CityRepository: require('./city.repository.js'),
+    CityAirPortRepository: require('./city-airport.repository.js')
 }

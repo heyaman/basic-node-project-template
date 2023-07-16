@@ -1,7 +1,8 @@
 const TABLE_NAME = {
     USER: 'User',
     CITY: 'City',
-    ROLE: 'Role'
+    ROLE: 'Role',
+    AIRPORT: 'AirPort'
 }
 const USER_ROLE = {
     CUSTOMER: 'CUSTOMER',
