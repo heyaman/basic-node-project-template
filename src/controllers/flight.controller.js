@@ -13,7 +13,17 @@ class FlightController extends BaseController {
         } catch (error) {
             this.errorHandler(error, res);
         }
+    }
 
+    static async createFlight(req, res, next) {
+        try {
+            const { body = {} } = req;
+            await this.validateSchema(SEARCH_FLIGHT, body);
+            const result = await FlightService.createFlight(body);
+            this.successHandler(result, res);
+        } catch (error) {
+            this.errorHandler(error, res);
+        }
     }
 }
 module.exports = FlightController;

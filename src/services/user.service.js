@@ -6,6 +6,7 @@ const { CHECK_VALUE, CHECK_NON_EMPTY_ARRAY, CHECK_NON_EMPTY_DICTIONARY } = requi
 const { TABLE_NAME: { USER, ROLE }, USER_ROLE } = require('../utils/common/constant');
 const { JWT_SECRET, JWT_ALGORITHM, JWT_EXPIRY } = require('../config/server-config');
 const { KEY_MANAGER } = require('../utils/common');
+const TokenManager= require('../utils/common/access-token/acess-token-manger');
 
 
 class User {
@@ -55,7 +56,7 @@ class User {
                 const userRoleDetails = await this.getUserRoles({ userId }, { include: [USER, ROLE] });
                 if (CHECK_NON_EMPTY_ARRAY(userRoleDetails) && CHECK_NON_EMPTY_DICTIONARY(userRoleDetails[0])) {
                     const { roleId, Role = {} } = userRoleDetails[0];
-                    const accessToken = this.generateAccessToken({ userId, roleId });
+                    const accessToken = TokenManager.generateAccessToken({ userId, roleId });
                     return { accessToken, userDetails, roleDetails: Role };
                 }
             }
@@ -73,14 +74,6 @@ class User {
 
     async getUserRoles(query = {}, options = {}) {
         return this.userRole.findMany(query, options);
-    }
-
-    generateAccessToken(payload = {}) {
-        if (!CHECK_NON_EMPTY_DICTIONARY(payload)) {
-            throw new Error('payload missing to generate token')
-        }
-        const privateKey = KEY_MANAGER.getPrivateKey();
-        return jwt.sign(payload, privateKey, { algorithm: JWT_ALGORITHM, expiresIn: JWT_EXPIRY });
     }
 
 }

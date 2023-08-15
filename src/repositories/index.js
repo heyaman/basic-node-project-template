@@ -8,5 +8,7 @@ module.exports = {
     AirPortRepository: require('./airport.repository.js'),
     FlightRepository: require('./flight.repository.js'),
     CityRepository: require('./city.repository.js'),
-    CityAirPortRepository: require('./city-airport.repository.js')
+    CityAirPortRepository: require('./city-airport.repository.js'),
+    BookingRepository: require('./booking.repository.js'),
+    PaymentHistoryRepository: require('./payment.history.js')
 }

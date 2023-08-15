@@ -46,7 +46,11 @@ module.exports = (sequelize, DataTypes) => {
     departureTime: {
       type: DataTypes.DATE,
       allowNull: false
-    }
+    },
+    seatRemaining: {
+      type: DataTypes.INTEGER,
+      allowNull: false
+    },
   }, {
     sequelize,
     modelName: 'Flight',

@@ -34,6 +34,10 @@ class FlightService {
         this.flight = new FlightRepository();
     }
 
+    createFlight(body, options) {
+        return this.flight.insert(body);
+    }
+
     async searchFlights(query = {}, options) {
         const filtersForFlightSearch = await this.prepareFilterForFlightSearch(query, options) || {};
         if (CHECK_NON_EMPTY_DICTIONARY(filtersForFlightSearch)) {
@@ -54,7 +58,7 @@ class FlightService {
                 travelingDate: {
                     [Op.gte]: travelingDate
                 },
-            },{
+            }, {
                 include: [AIRPORT, CITY]
             })
         }
@@ -148,6 +152,16 @@ class FlightService {
 
         }
         return {};
+    }
+
+    getFlightById(id) {
+        return this.flight.findOne({ id });
+    }
+
+    decrementSeatByFlightId(id, decrementCount, {
+        transaction
+    } = {}) {
+        return this.flight.decrement({ id }, { seatRemaining: decrementCount }, { transaction });
     }
 }
 module.exports = new FlightService();

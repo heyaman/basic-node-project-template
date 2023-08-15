@@ -2,7 +2,8 @@ require('dotenv').config()
 const servicePortMappings = {
     'UserService': 1,
     'AirPortService': 2,
-    'FlightPortService': 3
+    'FlightPortService': 3,
+    'BookingPortService': 4
 }
 
 module.exports = {

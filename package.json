@@ -9,6 +9,7 @@
   "author": "aman.tiwari",
   "license": "ISC",
   "dependencies": {
+    "axios": "^1.4.0",
     "bcrypt": "^5.1.0",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
@@ -17,6 +18,7 @@
     "jsonwebtoken": "^9.0.0",
     "moment": "^2.29.4",
     "mysql2": "^3.3.0",
+    "node-cron": "^3.0.2",
     "sequelize": "^6.31.1",
     "sequelize-cli": "^6.6.0",
     "winston": "^3.8.2"
