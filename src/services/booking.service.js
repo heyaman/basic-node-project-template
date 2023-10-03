@@ -1,5 +1,5 @@
 const { BookingRepository, PaymentHistoryRepository } = require("../repositories");
-const { BOOKING_STATUS } = require("../utils/common/constant");
+const { BOOKING_STATUS, PAYMENT_STATUS } = require("../utils/common/constant");
 const { CHECK_NON_EMPTY_DICTIONARY, CHECK_VALUE } = require("../utils/common/data-validator");
 const flightService = require("./flight.service");
 const moment = require('moment');
@@ -55,37 +55,38 @@ class BookingService {
          const paymentHistory = await this.paymentHistory.insert({
             bookingId,
             amount: amountToBePaid,
-            amountPaid: 0,
-            balance: amountToBePaid
+            amountPaid: amountToBePaid,
+            balance: 0
          }, { transaction });
-         const paymentPromise=new Promise((resolve, reject)=>{
-            setTimeout(()=>{
-               if(paymentSuccess){
+         var self = this;
+         const { id: paymentHistoryId } = paymentHistory;
+         const paymentPromise = new Promise((resolve, reject) => {
+            setTimeout(() => {// this means end user entering card details or upi pin smthng
+               if (paymentSuccess) {
                   resolve();
-               }else{
+               } else {
                   reject()
                }
 
-            },2000);
+            }, 2000);
          });
          paymentPromise
-         .then(function onApprovePayment(){
-           // here i need to mark payyment success and its 
-         })
-         .catch(function onDeclinedPayment(){
-             // here i need to mark payment as failed  and its respective balance amount
-            // also need need to update flight seats
-
-         });
+            .then(function onApprovePayment() {
+               const { BOOKING_STATUS } = require("../utils/common/constant");
+               self.bookingRepository.update({ id: bookingId }, { status: BOOKING_STATUS.COMPLETE }, { transaction });
+            })
+            .catch(function onDeclinedPayment() {
+               self.paymentHistory.update({ id: paymentHistoryId }, { status: PAYMENT_STATUS.FAILED }, { transaction });
+            });
          return paymentHistory;
       }
 
    }
 
    async cancelPendingBookingsWithTimeout() {
-      const tenMinutesAgo = moment().subtract(1, 'minutes');
+      const tenMinutesAgo = moment().subtract(10, 'minutes');
       const timeoutPendingBookingCount = await this.bookingRepository.findCount({
-         status: BOOKING_STATUS.PENDING,
+         status: { [Op.ne]: BOOKING_STATUS.COMPLETE },
          createdAt: {
             [Op.lte]: tenMinutesAgo
          }
